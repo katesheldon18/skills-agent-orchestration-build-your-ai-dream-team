@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "id": "proj-001",
+      "name": "Customer Portal Redesign",
+      "owner": "Amara Okafor",
+      "status": "On Track",
+      "recentActivity": "Finished usability testing round 2 with 12 participants.",
+      "priority": "High",
+      "progress": 65,
+      "dueDate": "2026-09-15"
+    },
+    {
+      "id": "proj-002",
+      "name": "Billing System Migration",
+      "owner": "Devon Chu",
+      "status": "At Risk",
+      "recentActivity": "Data migration script failing on legacy invoice records.",
+      "priority": "High",
+      "progress": 40,
+      "dueDate": "2026-08-01"
+    },
+    {
+      "id": "proj-003",
+      "name": "Mobile App Offline Mode",
+      "owner": "Priya Natarajan",
+      "status": "Blocked",
+      "recentActivity": "Waiting on third-party SDK vendor to fix sync API bug.",
+      "priority": "Medium",
+      "progress": 20,
+      "dueDate": "2026-10-30"
+    },
+    {
+      "id": "proj-004",
+      "name": "Internal Analytics Dashboard",
+      "owner": "Marcus Reid",
+      "status": "Complete",
+      "recentActivity": "Shipped v1.0 to all internal teams last Friday.",
+      "priority": "Low",
+      "progress": 100,
+      "dueDate": "2026-06-20"
+    },
+    {
+      "id": "proj-005",
+      "name": "API Rate Limiting Rollout",
+      "owner": "Sofia Marín",
+      "status": "On Track",
+      "recentActivity": "Deployed rate limiting to staging; monitoring error rates.",
+      "priority": "Medium",
+      "progress": 80,
+      "dueDate": "2026-08-22"
+    },
+    {
+      "id": "proj-006",
+      "name": "Employee Onboarding Portal",
+      "owner": "Jonah Whitfield",
+      "status": "At Risk",
+      "recentActivity": "Scope increased mid-sprint; timeline under review.",
+      "priority": "Low",
+      "progress": 30,
+      "dueDate": "2026-11-05"
+    }
+  ]
+}

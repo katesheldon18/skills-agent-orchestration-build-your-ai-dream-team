@@ -1,0 +1,294 @@
+/* ==========================================================================
+   Project Pulse — Dashboard Styles
+   Owner: Designer
+   ========================================================================== */
+
+:root {
+  /* Core palette */
+  --color-bg: #f3f5fa;
+  --color-surface: #ffffff;
+  --color-border: #e2e5ec;
+  --color-text: #1c2333;
+  --color-text-muted: #5b6478;
+  --color-primary: #3454d1;
+  --color-primary-dark: #24399a;
+
+  /* Status colors — text on background pairs chosen for >=4.5:1 contrast */
+  --status-on-track-bg: #d9f2e0;
+  --status-on-track-text: #0b5d2e;
+
+  --status-at-risk-bg: #fdf0cf;
+  --status-at-risk-text: #7a5200;
+
+  --status-blocked-bg: #fbdada;
+  --status-blocked-text: #8a1414;
+
+  --status-complete-bg: #dbe6fb;
+  --status-complete-text: #1c3a8a;
+
+  --status-default-bg: #e7e9f0;
+  --status-default-text: #3a3f52;
+
+  /* Priority colors */
+  --priority-high-bg: #fbdada;
+  --priority-high-text: #8a1414;
+
+  --priority-medium-bg: #fdf0cf;
+  --priority-medium-text: #7a5200;
+
+  --priority-low-bg: #d9f2e0;
+  --priority-low-text: #0b5d2e;
+
+  --priority-default-bg: #e7e9f0;
+  --priority-default-text: #3a3f52;
+
+  --radius-md: 12px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 3px rgba(28, 35, 51, 0.08), 0 4px 12px rgba(28, 35, 51, 0.06);
+  --shadow-card-hover: 0 4px 8px rgba(28, 35, 51, 0.12), 0 10px 24px rgba(28, 35, 51, 0.12);
+
+  --font-sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Base / reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  background-image: linear-gradient(180deg, #eef1fb 0%, #f3f5fa 220px);
+  background-repeat: no-repeat;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 1.5rem;
+}
+
+header h1 {
+  margin: 0 0 0.35rem;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-primary-dark);
+}
+
+header p {
+  margin: 0;
+  max-width: 55ch;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   Dashboard grid
+   ========================================================================== */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem 3rem;
+}
+
+@media (max-width: 640px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    padding: 0.5rem 1rem 2.5rem;
+  }
+
+  header {
+    padding: 1.75rem 1rem 1.25rem;
+  }
+}
+
+/* ==========================================================================
+   Project card
+   ========================================================================== */
+
+.project-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.project-name {
+  margin: 0 0 0.15rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.project-card p {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.project-activity {
+  align-items: flex-start;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.65rem;
+  margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   Field labels & values
+   ========================================================================== */
+
+.field-label {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.field-value {
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: right;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.project-activity .field-value {
+  text-align: left;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Badges — status & priority
+   ========================================================================== */
+
+.status-badge,
+.priority-badge {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+  padding: 0.2rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  background-color: var(--status-default-bg);
+  color: var(--status-default-text);
+}
+
+/* Status color mapping (paired with visible text, never color alone) */
+.status-badge[data-status="On Track"] {
+  background-color: var(--status-on-track-bg);
+  color: var(--status-on-track-text);
+}
+
+.status-badge[data-status="At Risk"] {
+  background-color: var(--status-at-risk-bg);
+  color: var(--status-at-risk-text);
+}
+
+.status-badge[data-status="Blocked"] {
+  background-color: var(--status-blocked-bg);
+  color: var(--status-blocked-text);
+}
+
+.status-badge[data-status="Complete"] {
+  background-color: var(--status-complete-bg);
+  color: var(--status-complete-text);
+}
+
+/* Priority color mapping */
+.priority-badge[data-priority="High"] {
+  background-color: var(--priority-high-bg);
+  color: var(--priority-high-text);
+}
+
+.priority-badge[data-priority="Medium"] {
+  background-color: var(--priority-medium-bg);
+  color: var(--priority-medium-text);
+}
+
+.priority-badge[data-priority="Low"] {
+  background-color: var(--priority-low-bg);
+  color: var(--priority-low-text);
+}
+
+/* ==========================================================================
+   Empty & error states
+   ========================================================================== */
+
+.empty-state,
+.error-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.error-state {
+  border-color: var(--status-blocked-text);
+  color: var(--status-blocked-text);
+  background-color: var(--status-blocked-bg);
+}
+
+#loading-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 2rem 1rem;
+}
+
+/* ==========================================================================
+   Accessibility — focus visibility
+   ========================================================================== */
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+.project-card:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}

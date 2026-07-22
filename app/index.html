@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Pulse</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Project Pulse</h1>
+    <p>A snapshot of every active project: status, recent activity, and priority at a glance.</p>
+  </header>
+
+  <main>
+    <section class="dashboard" id="dashboard" aria-live="polite">
+      <!-- Project cards are rendered here dynamically from project-data.json -->
+      <p id="loading-message">Loading projects…</p>
+    </section>
+  </main>
+
+  <script>
+    /**
+     * Fetches project-data.json and renders one .project-card per project
+     * inside the .dashboard container. Handles empty lists, missing fields,
+     * and fetch failures gracefully.
+     */
+    const FALLBACK_TEXT = "Unknown";
+
+    function fieldText(value) {
+      if (value === undefined || value === null || value === "") {
+        return FALLBACK_TEXT;
+      }
+      return String(value);
+    }
+
+    function createProjectCard(project) {
+      const card = document.createElement("article");
+      card.className = "project-card";
+
+      const name = fieldText(project.name);
+      const owner = fieldText(project.owner);
+      const status = fieldText(project.status);
+      const recentActivity = fieldText(project.recentActivity);
+      const priority = fieldText(project.priority);
+
+      card.innerHTML = `
+        <h2 class="project-name">${name}</h2>
+        <p class="project-owner">
+          <span class="field-label">Owner</span>
+          <span class="field-value">${owner}</span>
+        </p>
+        <p class="project-status">
+          <span class="field-label">Status</span>
+          <span class="status-badge" data-status="${status}">${status}</span>
+        </p>
+        <p class="project-priority">
+          <span class="field-label">Priority</span>
+          <span class="priority-badge" data-priority="${priority}">${priority}</span>
+        </p>
+        <p class="project-activity">
+          <span class="field-label">Recent Activity</span>
+          <span class="field-value">${recentActivity}</span>
+        </p>
+      `;
+
+      return card;
+    }
+
+    function renderProjects(projects) {
+      const dashboard = document.getElementById("dashboard");
+      dashboard.innerHTML = "";
+
+      if (!Array.isArray(projects) || projects.length === 0) {
+        const emptyState = document.createElement("p");
+        emptyState.className = "empty-state";
+        emptyState.textContent = "No projects yet.";
+        dashboard.appendChild(emptyState);
+        return;
+      }
+
+      projects.forEach((project) => {
+        dashboard.appendChild(createProjectCard(project));
+      });
+    }
+
+    function renderError(message) {
+      const dashboard = document.getElementById("dashboard");
+      dashboard.innerHTML = "";
+      const errorMessage = document.createElement("p");
+      errorMessage.className = "error-state";
+      errorMessage.textContent = message;
+      dashboard.appendChild(errorMessage);
+    }
+
+    fetch("project-data.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load project-data.json (status ${response.status})`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        renderProjects(data.projects);
+      })
+      .catch((error) => {
+        renderError(
+          "Unable to load project data. If you opened this file directly, " +
+          "please run it through a local server instead (see .vscode/launch.json). " +
+          "Error: " + error.message
+        );
+      });
+  </script>
+</body>
+</html>
